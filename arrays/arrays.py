@@ -1,3 +1,4 @@
+# 1.1 Get product of all other elements
 
 # Original
 # def multiply_array_items(arr):
@@ -15,6 +16,7 @@
 
 # O(n) solution
 def multiply_array_items(nums):
+
   prefix_products = []
   for num in nums:
     if prefix_products:
@@ -44,3 +46,79 @@ def multiply_array_items(nums):
       )
 
   return result
+
+# 1.2 Locate smallest window to be sorted
+# Original
+# def window(nums):
+#   unsorted_nums = nums
+#   sorted_nums = sorted(nums)
+#   sort_start = None
+#   sort_end = None
+
+#   for i in range(len(nums)):
+#     if unsorted_nums[i] != sorted_nums[i]:
+#       if sort_start == None:
+#         sort_start = i
+
+#   for i in reversed(range(len(nums))):
+#     if unsorted_nums[i] != sorted_nums[i]:
+#       if sort_end == None:
+#         sort_end = i
+
+#   return (sort_start,sort_end)
+
+  # O(n)
+def window(nums):
+  left, right = None, None
+  n = len(nums)
+  max_seen, min_seen = -float("inf"), float("inf")
+  for i in range(n):
+    max_seen = max(max_seen, nums[i])
+    if nums[i] < max_seen:
+      right = i
+  for i in range(n - 1, -1, -1):
+    min_seen = min(min_seen, nums[i])
+    if nums[i] > min_seen:
+      left = i
+  return left, right
+
+# 1.3 Calculate maximum subarray sum
+# first
+# def sub_array_sum(nums):
+#   totals = []
+#   reverse_totals = []
+#   n = len(nums)
+#   last_highest = 0
+#   for i in range(n):
+#     number = nums[i]
+#     if totals and i < n:
+#       number_to_add = number + totals[i - 1]
+#       totals.append(number + totals[i - 1] )
+#     else:
+#       number_to_add = number
+#       totals.append(number)
+#     if number_to_add > last_highest:
+#       last_highest = number_to_add
+#   for i in range(n - 1, -1, -1):
+#     number = nums[i]
+#     length = len(reverse_totals)
+#     if length and i > 0:
+#       number_to_add = number + reverse_totals[length - 1]
+#       reverse_totals.append(number + reverse_totals[length - 1] )
+#     else:
+#       number_to_add = number
+#       reverse_totals.append(number)
+#     if number_to_add > last_highest:
+#       last_highest = number_to_add
+#   if last_highest > 0:
+#     return last_highest
+#   else:
+#     return 0
+
+# Better
+def sub_array_sum(nums):
+  max_ending_here = max_so_far = 0
+  for x in nums:
+    max_ending_here = max(x, max_ending_here + x)
+    max_so_far = max(max_so_far, max_ending_here)
+  return max_so_far
