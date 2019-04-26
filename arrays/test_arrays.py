@@ -10,7 +10,6 @@ class ArrayProuctTest(unittest.TestCase):
       number_lists_with_zero = [5, 10, 1, 0]
       self.assertEqual(multiply_array_items(number_lists_with_zero), [0, 0, 0, 50])
 
-
 class ArrayMinSortRangeTest(unittest.TestCase):
     def test_gets_min_sort_range(self):
       number_lists = [3,7,5,6,9]
@@ -28,3 +27,8 @@ class MaxSubArraySum(unittest.TestCase):
     def test_can_take_none(self):
       number_lists = [-5, -1, -8, -9]
       self.assertEqual(sub_array_sum(number_lists), 0)
+
+class SmallerElementsToRightTest(unittest.TestCase):
+    def test_finds_smaller_elements_to_right(self):
+      number_list = [3,4,9,6,1]
+      self.assertEqual(smaller_counts(number_list), [1,1,2,1,0])

@@ -1,3 +1,4 @@
+import bisect
 # 1.1 Get product of all other elements
 
 # Original
@@ -122,3 +123,42 @@ def sub_array_sum(nums):
     max_ending_here = max(x, max_ending_here + x)
     max_so_far = max(max_so_far, max_ending_here)
   return max_so_far
+
+
+# def smaller_counts(nums):
+#   smaller_nums = []
+#   checked_nums = []
+#   previus_number = 0
+#   n = len(nums)
+#   for i in range(n - 1, -1, -1):
+#     number = nums[i]
+#     if not smaller_nums:
+#       smaller_nums.append(0)
+#     else:
+#       prev = len(smaller_nums) - 1
+#       if previus_number < number:
+#         smaller_nums.append(smaller_nums[prev] + 1)
+#       else:
+
+#         smaller_ammount = 0
+#         for i in reversed(checked_nums):
+#           if i < number:
+#             smaller_ammount += 1
+#         smaller_nums.append(smaller_ammount)
+#       previus_number = number
+#     checked_nums.append(number)
+#   smaller_nums.reverse()
+#   return smaller_nums
+
+# prettier
+def smaller_counts(nums):
+  result = []
+  seen = []
+
+  for num in reversed(nums):
+    i = bisect.bisect_left(seen, num)
+    result.append(i)
+    bisect.insort(seen, num)
+  return list(reversed(result))
+
+
